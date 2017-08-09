@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "func.h"
 
 int fprintFunc()
 {
@@ -13,7 +14,8 @@ int fprintFunc()
 		printf("open file failed!\n");
 		exit(1);
 	}
-    printf("ftell = %ld\n", ftell(fp));
+    printf("fprintFunc decleration in fprintFunc.c\n");
+	printf("ftell = %ld\n", ftell(fp));
 	fseek(fp, 0, SEEK_SET);
 	printf("ftell = %ld\n", ftell(fp));
 	fwrite("kraus\n", sizeof(char), 6, fp);
