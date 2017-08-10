@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "pub.h"
 #include "func.h"
 #include "lua_func.h"
@@ -16,7 +17,8 @@ int main(int argc, char *argv[])
         printf("argv[%d] = %s\n", i, argv[i]);
     }
 //	fprintfFunc();
-    call_lua();
+    if(argv[1] != NULL && strcmp(argv[1], "lua") == 0)
+		call_lua(argv[2]);
 	func();
     printf("g_str = %s\n", g_str);
 }

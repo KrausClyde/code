@@ -24,3 +24,11 @@ function func1 (n)
     end
 	return 1
 end
+
+function test()
+	print("lua function test() called")
+end
+
+function NA()
+	print("lua function NA() called")
+end

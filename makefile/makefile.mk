@@ -1,5 +1,5 @@
-run : main.o func.o pub.o fprintf.o
-	cc -o run main.o  pub.o lua_func.o  libfunc.so -llua
+run : main.o func.o pub.o fprintf.o lua_func.o
+	cc -o run main.o  pub.o lua_func.o  libfunc.so -llua -lm -ldl
 
 main.o : main.c func.h pub.h
 	cc -Wall -c main.c

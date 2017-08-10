@@ -5,7 +5,7 @@
 #include <unistd.h>  
 #include <stdio.h>  
 
-int call_lua()
+int call_lua(char *func)
 {
 	 int x = 0;
 	     long int r;
@@ -25,8 +25,10 @@ if(luaL_loadfile(pLua, "test.lua") != 0)    /* 读取lua源文件，仅载入内
     lua_pcall(pLua, 0, LUA_MULTRET, 0);         /* 执行匿名函数，以编译源代码成二进制码 */
 	                                                /* 并将全局变量压栈（函数名也是变量）。*/
 	                                                /* 这句看似无用，但是不能省 */
-	    lua_getglobal(pLua, "func1");               /* 取全局变量，这里是待调用函数名 */
-
+	if(func != NULL) 
+	    lua_getglobal(pLua, func);               /* 取全局变量，这里是待调用函数名 */
+    else
+		lua_getglobal(pLua, "NA");
 		//调用函数
 		lua_pushnumber(pLua, x);                    /* 参数压栈。x 为事先定义的变量 */
 		if(lua_pcall(pLua, 1, 1, 0) != 0)           /* 执行函数 */

@@ -1,6 +1,6 @@
 #ifndef __LUA_FUNC_H__
 #define __LUA_FUNC_H__
 
-int call_lua();
+int call_lua(char *func);
 
 #endif
