@@ -1,5 +1,5 @@
-run : main.o func.o pub.o fprintf.o lua_func.o
-	cc -o run main.o  pub.o lua_func.o  libfunc.so -llua -lm -ldl
+run : main.o func.o pub.o fprintf.o lua_func.o wrap.o
+	cc -Wl,--wrap,malloc -Wl,--wrap,free -o run main.o  pub.o lua_func.o  libfunc.so -llua -lm -ldl
 
 main.o : main.c func.h pub.h
 	cc -Wall -c main.c
@@ -16,7 +16,10 @@ pub.o : pub.c pub.h
 lua_func.o : lua_func.c lua_func.h test.lua
 	cc -Wall -c  lua_func.c
 
-libfunc.so : fprintf.c func.c func.h pub.h
-	cc -shared func.c fprintf.c -o libfunc.so
+libfunc.so : fprintf.c func.c func.h pub.h wrap.c
+	cc -Wl,--wrap,malloc -Wl,--wrap,free -shared func.c fprintf.c -o libfunc.so
+    
+wrap.o : wrap.c
+    cc -Wall -c wrap.c
 clean :
 	rm run main.o func.o pub.o
