@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "pub.h"
 #include "func.h"
@@ -12,6 +13,8 @@ int fprintFunc()
 }
 int main(int argc, char *argv[])
 {
+	char *str = (char *)malloc(sizeof(char) * 8);
+	memset(str,g_str,3);
     for(int i = 0; i < argc; i++)
     {
         printf("argv[%d] = %s\n", i, argv[i]);

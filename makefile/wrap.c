@@ -18,5 +18,5 @@ void __wrap_free(void* ptr)
 {
     g_MemoryCount--;
     printf("__wrap_free called\n");
-    return __real_free(size);
+    return __real_free(ptr);
 }

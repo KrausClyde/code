@@ -17,6 +17,7 @@ typedef struct pack
 
 void func()
 {
+	char *str = (char *)malloc(sizeof(char) * 8);
 	stPack stPack_table[5] = {0};
 	stPack stPack_temp = {0};
 	printf("stPack_Table = %p\n",stPack_table);
