@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pub.h"
-#include "func.h"
+#include "./module_a/func.h"
 #include "lua_func.h"
 
 extern char g_str[30];

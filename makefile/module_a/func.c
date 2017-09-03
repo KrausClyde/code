@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "func.h"
-#include "pub.h"
+#include "../pub.h"
 
 #pragma pack(2)
 

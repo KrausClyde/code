@@ -18,7 +18,7 @@ int fprintFunc()
 	printf("ftell = %ld\n", ftell(fp));
 	fseek(fp, 0, SEEK_SET);
 	printf("ftell = %ld\n", ftell(fp));
-	fwrite("kraus\n", sizeof(char), 6, fp);
+	fwrite("kraus\n", sizeof(char), sizeof("kraus\n"), fp);
 	fprintf(fp, "%s", str);
 
 	fclose(fp);
