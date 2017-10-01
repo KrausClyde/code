@@ -1,19 +1,28 @@
 CFLAGS = -Wall -fPIC
 CC=gcc
 
+#OStype
+ostype=$(shell uname)
+CFLAGS+=$(if $(findstring Linux,ostype),,-DMAKEFILE_MACRO=\"Linux\")
+CFLAGS+=$(if $(findstring Darwin,ostype),,-DMAKEFILE_MACRO=\"Mac\")
+
 export ROOT=${pwd}
 export Module_A_PATH=${ROOT}module_a
 INCLUDE = -I$(ROOT)/ \
-		  -I$(MODULE_A_PATH)/ \
+		  -I$(MODULE_A_PATH)/ 
 
-SRC = ${wildcard *.c}
+wrap=wrap.c
+SRC_origin = ${wildcard *.c}
+SRC = $(if $(findstring ${wrap},SRC_origin),, $(filter-out ${wrap},$(SRC_origin)))
 DIR = $(notdir ${SRC})
 OBJ = $(patsubst %.c, %.o, ${SRC})
 
 run : ${OBJ} lib_module_a.so
 	@echo "build execut file"
+	@echo "${ostype} CCFLAG ${CCFLAG}"
 	@echo "obj " ${OBJ}
-	${CC} -o $@  $^  -llua -lm -ldl
+	@echo ${module}
+	${CC} -o  $@  $^  -llua -lm -ldl
 
 ${OBJ}  : ${SRC}
 	@echo "obj " ${OBJ}
@@ -22,4 +31,4 @@ ${OBJ}  : ${SRC}
 
 
 clean :
-	rm run main.o pub.o wrap.o
+	rm run main.o pub.o 

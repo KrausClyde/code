@@ -1,11 +1,22 @@
 export ROOT=${pwd}
+Mac="Mac"
+#OStype
+ostype=$(shell uname)
+CCFLAG=$(if $(findstring Linux,ostype),,-DMAKEFILE_MACRO=\"Linux\")
+CCFLAG+=$(if $(findstring Darwin,ostype),,-DMAKEFILE_MACRO=\"Mac\")
+#CCFLAG+=$(if $(findstring "Darwin",ostype,),-DMAKEFILE_MACRO=10)
+#CCFLAG+=$(if $(findstring "Darwin",${ostype}),,-DMAKEFILE_MACRO=10)
+#if $(findstring Linux,ostype)
+#	CCFLAG = -DMAKEFILE_MACRO
+#endif
 run : main.o  pub.o  lua_func.o wrap.o
+	@echo "${ostype} CCFLAG ${CCFLAG}"
 	#gcc -Wl,--wrap,malloc -Wl,--wrap,free -fPIC -o run main.o  pub.o lua_func.o  libfunc.so -llua -lm -ldl
 	#gcc -Wl,-alias,__Z3malloc,__Z8wrap_malloc -fPIC -o run main.o  pub.o lua_func.o  lib_module_a.so -llua -lm -ldl
-	gcc -Wl,-alias,__Z3malloc,__Z8wrap_malloc -fPIC -o run main.o  pub.o lua_func.o  ${ROOT}lib_module_a.so -llua -lm -ldl
+	gcc -Wl,-alias,__Z3malloc,__Z8wrap_malloc -fPIC ${CCFLAG} -o run main.o  pub.o lua_func.o  ${ROOT}lib_module_a.so -llua -lm -ldl
 
 main.o : main.c  pub.h
-	gcc -Wall -fPIC -c main.c
+	gcc -Wall -fPIC ${CCFLAG} -c main.c
 
 #func.o : func.c func.h
 #	gcc -Wall -fPIC -c func.c
