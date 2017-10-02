@@ -27,7 +27,8 @@ SRC_origin = ${wildcard *.c}
 SRC = $(if $(findstring ${ostype},"Darwin"), $(filter-out ${wrap},${SRC_origin}), ${SRC_origin})
 DIR = $(notdir ${SRC})
 OBJ = $(patsubst %.c, %.o, ${SRC})
-include /home/anlian/code/makefile/module_a/makefile_module_a.mk
+
+include ${ROOT}/module_a/makefile_module_a.mk
 
 run : ${OBJ} ${module}
 	@echo "FLAG ${FLAG} ${FLAG1} ostype ${ostype}"
