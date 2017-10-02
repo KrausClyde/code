@@ -1,8 +1,12 @@
 CFLAGS = -Wall -fPIC
-export BuildPATH=${shell pwd}
-export ParentPATH=${BuildPATH}/..
+#export BuildPATH=${shell pwd}
+#export ParentPATH=${BuildPATH}/..
+BuildPATH?=${ROOT}/module_a
+BuildPATH?=${shell pwd}
+ParentPATH?=${ROOT}
+ParentPATH?=${BuildPATH}/..
 MODULE=module_a
-module=${ParentPATH}/lib_$(MODULE).so
+module_a=${ParentPATH}/lib_$(MODULE).so
 
 INCLUDE = -I$(ParentPATH)/ \
 		  -I$(BuildPATH)/ \
@@ -12,21 +16,22 @@ INCLUDE = -I$(ParentPATH)/ \
 #DIR = $(notdir ${SRC})
 #OBJ = $(patsubst ${BuildPATH}/.%c, ${BuildPATH}/%.o, ${DIR})	
 
-Module_A_SRC = ${wildcard *.c}
+Module_A_SRC = ${wildcard ${BuildPATH}/*.c}
 Module_A_DIR = $(notdir ${Module_A_SRC})
-Module_A_OBJ = $(patsubst %.c, %.o, ${Module_A_SRC})
+Module_A_OBJ = $(patsubst %.c, %.o, ${Module_A_DIR})
 #OBJ = func.o
 ${module_a} : ${Module_A_OBJ}
 	@echo "build ${module_a}"
 	@echo "SRC " ${Module_A_SRC} "OBJ" ${OBJ}
-	@echo "PATH ROOT:${ParentPATH}  BuildPATH:${BuildPATH}"
+	@echo "Module_A PATH ROOT:${ParentPATH}  BuildPATH:${BuildPATH}"
 	gcc -shared -o $@  $^  ${CFLAGS} ${INCLUDE}
 	@echo "$(module_a) built"
 
-${Module_a_OBJ} : ${Module_A_SRC}
+${Module_A_OBJ} : ${Module_A_SRC}
 	@echo "build OBJ"
+	@echo "MODULE CFLAGS ${CFLAGS} SRC ${Module_A_SRC}"
 	gcc -c $^ ${CFLAGS} $(INCLUDE)
 
 .PHONY : clean
 clean :
-	rm -f *.o
+	rm -f ${Module_A_OBJ}
