@@ -1,6 +1,6 @@
 CFLAGS = -Wall -fPIC
-export BuildPATH=$(pwd)
-export ROOT=${pwd}..
+export BuildPATH=${shell pwd}
+export ROOT=${pwd}/..
 MODULE=module_a
 module=${ROOT}/lib_$(MODULE).so
 
