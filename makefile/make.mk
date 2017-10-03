@@ -4,9 +4,9 @@ CC=gcc
 
 #OStype
 ostype=$(shell uname)
-CFLAGS+=$(if $(findstring ${ostype},"Darwin"), -DMAKEFILE_MACRO=\"Mac\")
+CFLAGS+=$(if $(findstring ${ostype},"Darwin"),-DMAKEFILE_MACRO=\"Mac\")
 CFLAGS+=$(if $(findstring ${ostype},"GNU/Linux"),-DMAKEFILE_MACRO=\"Linux\")
-CFLAGS+=$(if $(findstring ${ostype},"GNU/Linux") ,${CCFLAG})
+CFLAGS+=$(if $(findstring ${ostype},"GNU/Linux"),${CCFLAG})
 
 FLAG=$(findstring \"Darwin\",${ostype})
 FLAG1=$(if FLAG, "DDDD")
@@ -22,13 +22,14 @@ INCLUDE = -I$(ROOT)/ \
 #include /home/anlian/code/makefile/module_a/makefile_module_a.mk
 
 wrap=wrap.c
-SRC_origin = ${wildcard *.c}
+SRC_origin = ${wildcard ${ROOT}/*.c}
 #SRC = $(if $(findstring ${wrap},SRC_origin),, $(filter-out ${wrap},$(SRC_origin)))
-SRC = $(if $(findstring ${ostype},"Darwin"), $(filter-out ${wrap},${SRC_origin}), ${SRC_origin})
-DIR = $(notdir ${SRC})
+#SRC = $(if $(findstring ${ostype},"Darwin"), $(filter-out ${wrap},${SRC_origin}), ${SRC_origin})
+DIR = $(notdir ${SRC_origin})
+SRC = $(if $(findstring ${ostype},"Darwin"), $(filter-out ${wrap},${DIR}), ${DIR})
 OBJ = $(patsubst %.c, %.o, ${SRC})
 
-include ${ROOT}/module_a/makefile_module_a.mk
+#include ${ROOT}/module_a/makefile_module_a.mk
 
 run : ${OBJ} ${module}
 	@echo "FLAG ${FLAG} ${FLAG1} ostype ${ostype}"
@@ -45,4 +46,4 @@ ${OBJ}  : ${SRC}
 clean :
 	rm -f ${OBJ} 
 
-#include /home/anlian/code/makefile/module_a/makefile_module_a.mk
+include ${ROOT}/module_a/makefile_module_a.mk

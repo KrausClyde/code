@@ -1,4 +1,4 @@
-CFLAGS = -Wall -fPIC
+CFLAGS ?= -Wall -fPIC
 #export BuildPATH=${shell pwd}
 #export ParentPATH=${BuildPATH}/..
 BuildPATH?=${ROOT}/module_a
@@ -6,7 +6,7 @@ BuildPATH?=${shell pwd}
 ParentPATH?=${ROOT}
 ParentPATH?=${BuildPATH}/..
 MODULE=module_a
-module_a=${ParentPATH}/lib_$(MODULE).so
+module_name=${ParentPATH}/lib_$(MODULE).so
 
 INCLUDE = -I$(ParentPATH)/ \
 		  -I$(BuildPATH)/ \
@@ -20,12 +20,12 @@ Module_A_SRC = ${wildcard ${BuildPATH}/*.c}
 Module_A_DIR = $(notdir ${Module_A_SRC})
 Module_A_OBJ = $(patsubst %.c, %.o, ${Module_A_DIR})
 #OBJ = func.o
-${module_a} : ${Module_A_OBJ}
-	@echo "build ${module_a}"
+${module_name} : ${Module_A_OBJ}
+	@echo "build ${module_name}"
 	@echo "SRC " ${Module_A_SRC} "OBJ" ${OBJ}
 	@echo "Module_A PATH ROOT:${ParentPATH}  BuildPATH:${BuildPATH}"
 	gcc -shared -o $@  $^  ${CFLAGS} ${INCLUDE}
-	@echo "$(module_a) built"
+	@echo "$(module_name) built"
 
 ${Module_A_OBJ} : ${Module_A_SRC}
 	@echo "build OBJ"
