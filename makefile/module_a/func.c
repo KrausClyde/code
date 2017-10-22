@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include "func.h"
 #include "../pub.h"
+#include "convert.h"
 
 #pragma pack(2)
 
 extern char g_str[30];
-extern int fprintFunc();
+//extern int fprintFunc();
+extern void funCall();
 
 typedef struct pack
 {
@@ -17,6 +19,8 @@ typedef struct pack
 
 void func()
 {
+    int arry[10] = {1,2,3,4,5,6,7,8,9,0};
+    int *p = arry;
 	char *str = (char *)malloc(sizeof(char) * 8);
 	stPack stPack_table[5] = {0};
 	stPack stPack_temp = {0};
@@ -27,7 +31,12 @@ void func()
 	printf("stPack_temp +1 = %p\n", &stPack_temp + 1);
     printf("MEMBER2STRUCT (stPack_temp, stPack, c) = %p\n",MEMBER2STRUCT(&(stPack_temp.c), stPack, c) );
 //    printf("(&(stPack *)0)->c = %p\n", ((stPack *)0)->c);
-	fprintFunc();
+    printf("arry[1] = %d, p[1] = %d, 0[p+1] = %d\n", arry[1], p[1], 0[p+1]);
+    printf("convert(34) = %s\n", convert(34));
+    printf("convert(16) = %s\nconvert(77) = %s\n",convert(16), convert(77));
+
+    //fprintFunc();
+    funCall();
 	
 	sprintf(g_str, "%s", "Mem");
 }

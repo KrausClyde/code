@@ -34,7 +34,7 @@ OBJ = $(patsubst %.c, %.o, ${SRC})
 run : ${OBJ} ${module}
 	@echo "FLAG ${FLAG} ${FLAG1} ostype ${ostype}"
 	@echo "build execut file"
-	@echo "SRC: ${SRC_origin};${SRC} obj:${OBJ}"
+	@echo "SRC: ${SRC} obj:${OBJ}"
 	@echo "PATH ROOT ${ROOT} Module_A_PATH ${Module_A_PATH} module ${module}"
 	@echo "${ostype} CFLAGS ${CFLAGS}"
 	${CC} -o  $@  $^ ${CFLAGS} -llua -lm -ldl

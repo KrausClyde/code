@@ -6,6 +6,7 @@
 
 
 void func();
-int fprintFunc();
+//void funCall();
+//static int fprintFunc();
 
 #endif

@@ -22,7 +22,7 @@ Module_A_OBJ = $(patsubst %.c, %.o, ${Module_A_DIR})
 #OBJ = func.o
 ${module_name} : ${Module_A_OBJ}
 	@echo "build ${module_name}"
-	@echo "SRC " ${Module_A_SRC} "OBJ" ${OBJ}
+	@echo "SRC " ${Module_A_SRC} "OBJ" ${Module_A_OBJ}
 	@echo "Module_A PATH ROOT:${ParentPATH}  BuildPATH:${BuildPATH}"
 	gcc -shared -o $@  $^  ${CFLAGS} ${INCLUDE}
 	@echo "$(module_name) built"

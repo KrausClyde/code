@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include "func.h"
 
-int fprintFunc()
+
+static int fprintFunc()
 {
     FILE *fp;
 	char str[30] = "Its a good show\n";
-	
 	fp = fopen("text.txt", "a+");
 	if(fp == NULL)
 	{
@@ -22,4 +22,10 @@ int fprintFunc()
 	fprintf(fp, "%s", str);
 
 	fclose(fp);
+}
+
+void funCall()
+{
+    printf("function %s run\n",__FUNCTION__);
+    fprintFunc();
 }
