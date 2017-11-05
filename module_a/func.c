@@ -17,6 +17,8 @@ typedef struct pack
 	char d;
 }stPack;
 
+void test();
+
 void func()
 {
     int arry[10] = {1,2,3,4,5,6,7,8,9,0};
@@ -38,6 +40,37 @@ void func()
     //fprintFunc();
     funCall();
 	
-	sprintf(g_str, "%s", "Mem");
+    sprintf(g_str, "%s", "Mem");
+
+    test();
+}
+
+char *getMemory()
+{
+    char p[] = "hello world";
+    printf("p = %p, %s\n", p, p);
+    return p;
+}
+char *getMemory1(char *p)
+{
+    p = (char *)malloc(100);
+}
+void getMemory2(char **p, int num)
+{
+    *p = (char *)malloc(num);
+}
+void test()
+{
+    char *str = NULL;
+    str = getMemory();
+    printf("getMemory: %p %s\n",str, str);
+
+    getMemory1(str);
+    strcpy(str, "hello world");
+    printf("getMemory1: %p %s\n", str, str);
+
+    getMemory2(&str, 100);
+    strcpy(str, "hello world");
+    printf("getMemory2: %p %s\n", str, str);
 }
 #pragma pack()

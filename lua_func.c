@@ -20,7 +20,7 @@ int call_lua(char *func)
     luaL_openlibs(pLua);/* 加载Lua库 */
 
 	//读取 Lua 代码文件 
-    if(luaL_loadfile(pLua, "test.lua") != 0)    /* 读取lua源文件，仅载入内存而未编译 */
+    if(luaL_loadfile(pLua, "lua.lua") != 0)    /* 读取lua源文件，仅载入内存而未编译 */
 		return 0;
     lua_pcall(pLua, 0, LUA_MULTRET, 0);         /* 执行匿名函数，以编译源代码成二进制码 */
 	                                                /* 并将全局变量压栈（函数名也是变量）。*/
