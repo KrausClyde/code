@@ -1,25 +1,38 @@
 #!/bin/bash
 
 #tranverse folder
-function tranFolder()
+function tranverseFolder()
 {
     echo "tranverse folder"
-    flist='ls $1'
-    cd $1
+    echo "$0 $1 $2 $3"
+    flist=$(ls)
 
-    for f in $flist
+    for f in ${flist}
     do
         if test -d $f
         then
-            echo "$f"
-            tranFolder $f
+            echo "folder $f"
+            cd $f
+            tranverseFolder $f
+            cd ..
         else
-            echo "$f"
+            echo "file $f"
         fi
     done
-    cd ../
 }
 
-dir=(cd $(pwd)/..)
-echo "current dir: $(dir) pwd:$(pwd)"
-tranFolder ${dir}
+function changeName(){
+    #new=`echo $1|sed 's/^/abc/g'`
+    new=`echo $1|sed -r 's/abc(.*$)/\1/g'`
+    #echo $new
+    mv $1 $new
+}
+#a=$(ls)  
+#echo "$a"
+
+dir=/mnt/hgfs/vmshared
+echo "current dir: dir pwd:$(pwd)"
+tranverseFolder ${dir}
+
+#sed -i 's/Old/New/g' ${filename}
+
