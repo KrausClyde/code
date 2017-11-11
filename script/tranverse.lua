@@ -110,8 +110,30 @@ print(string.gsub("hello world", "(%w+)", "%1 %1"))
 
 
 --file
+local i = 0
+lines = {}
 local file = io.open("text1.txt","r")
-local str = file:read("*a")
+for line in io.lines("text1.txt") do
+  table.insert(lines,line)
+end
 file:close()
-local newStr = string.gsub(str,"aaa","bbb")
-print(newStr)
+
+print("modify files")
+local file = io.open("text1.txt","w")
+--[[
+for k,v in ipairs(lines) do
+    v = string.gsub(str,"test","trial")
+    file:write(v)
+    file:write("\n")
+    i = i + 1
+end
+--]]
+for loop=1,#lines do
+    v = string.gsub(lines[loop],"test","trial")
+    file:write(v)
+    file:write("\n")
+    i = i + 1
+end
+
+file:close()
+print(i)
