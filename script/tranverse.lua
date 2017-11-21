@@ -2,13 +2,16 @@ require "luarocks.site_config"
 require "lfs" 
 
 delimiter = nil
+endofline = nil
 --在luarocks模块中，有一个luarocks.site_config模块（一个lua文件），其安装时便设定了操作系统类型
 --local system = luarocks.site_config.LUAROCKS_UNAME_S or io.popen("uname -s"):read("*l") 
 local system = io.popen("uname -s"):read("*l")
-if system == "Darwin" then  
+if system == "Darwin" or system == "GNU/Linux" then  
     delimiter = '/'  
+    endofline = "\n"
 elseif system and system:match("^Windows") then  
-    delimiter = '\\'  
+    delimiter = '\\' 
+    endofline = "\r\n"
 end  
 print(system)  
 
@@ -98,6 +101,17 @@ end
 	'%' 用作特殊字符的转义字符，因此 '%.' 匹配点；'%%' 匹配字符 '%'。转义字符 '%'不仅可以用来转义特殊字符，还可以用于所有的非字母的字符。当对一个字符有疑问的时候，为安全起见请使用转义字符转义他。
 	对Lua而言，模式串就是普通的字符串。他们和其他的字符串没有区别，也不会受到特殊对待。只有他们被用作模式串用于函数的时候，'%' 才作为转义字符。所以，如果你需要在一个模式串内放置引号的话，你必须使用在其他的字符串中放置引号的方法来处理，使用 '\' 转义引号，'\' 是Lua的转义符。你可以使用方括号将字符类或者字符括起来创建自己的字符类（译者：Lua称之为char-set，就是指传统正则表达式概念中的括号表达式）。比如，'[%w_]' 将匹配字母数字和下划线，'[01]' 匹配二进制数字。
 --]]
+
+--[[
+	<tag1>python</tag2>
+	<tag3>python</tag3>
+	<([\w]+\d)>[\w]+</\1>
+	
+	<tag1>python</tag2>
+	<tag3<subtag>>python<</subtag>/tag3>
+	<([\w]+\d)<([\w]+)>>[\w]+<</\2
+	<(([\w]+\d)<([\w]+))>>[\w]+<</\3>/\2
+--]]
 s = "hello world from Lua"
 --for w in string.gmatch(s, "%a+") do
 --    print(w)
@@ -124,14 +138,14 @@ local file = io.open("text1.txt","w")
 for k,v in ipairs(lines) do
     v = string.gsub(str,"test","trial")
     file:write(v)
-    file:write("\n")
+    file:write(endofline)
     i = i + 1
 end
 --]]
 for loop=1,#lines do
     v = string.gsub(lines[loop],"test","trial")
     file:write(v)
-    file:write("\n")
+    file:write(endofline)
     i = i + 1
 end
 
