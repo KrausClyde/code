@@ -1,9 +1,43 @@
 This is a trial line.
 trial the trial line.
-
+<tag>
+<subtag>
 13345677892
 
+typedef struct pack
+{
+    char a;
+	unsigned short b;
+	int c;
+	char d;
+}stPack;
+
+#define MEMBER2STRUCT(PTR, TYPE, MEMBER)  \
+   ((TYPE *)((unsigned long)PTR - (unsigned long) (&((TYPE *)0)->MEMBER)))
+
+void func()
+{
+    int arry[10] = {1,2,3,4,5,6,7,8,9,0};
+    int *p = arry;
+	char *str = (char *)malloc(sizeof(char) * 8);
+	stPack stPack_table[5] = {0};
+	stPack stPack_temp = {0};
+	printf("stPack_temp +1 = %p\n", &stPack_temp + 1);
+    printf("MEMBER2STRUCT (stPack_temp, stPack, c) = %p\n",MEMBER2STRUCT(&(
+    printf("convert(34) = %s\n", convert(34));
+    printf("convert(16) = %s\nconvert(77) = %s\n",convert(16), convert(77));
+
+    //fprintFunc();
+    funCall();
+	
+    sprintf(g_str, "%s", "Mem");
+
+    test();
+}
+</subtag>
+</tag>
 1434567789023
 115345677890
 0534567789023
 7534567789023
+abcabc

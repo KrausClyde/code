@@ -4,8 +4,8 @@ CC=gcc
 
 #OStype
 ostype=$(shell uname)
-CFLAGS+=$(if $(findstring ${ostype},"Darwin"),-DMAKEFILE_MACRO=\"Mac\")
-CFLAGS+=$(if $(findstring ${ostype},"GNU/Linux"),-DMAKEFILE_MACRO=\"Linux\")
+CFLAGS+=$(if $(findstring ${ostype},"Darwin"),-DMAKEFILE_MACRO_MAC=\"Mac\")
+CFLAGS+=$(if $(findstring ${ostype},"GNU/Linux"),-DMAKEFILE_MACRO_LINUX=\"Linux\")
 CFLAGS+=$(if $(findstring ${ostype},"GNU/Linux"),${CCFLAG})
 
 FLAG=$(findstring \"Darwin\",${ostype})

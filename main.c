@@ -17,8 +17,11 @@ int main(int argc, char *argv[])
 {
     int loop = 0, i = 0;
 
-#ifdef MAKEFILE_MACRO
-	printf("\r\ndefined makefile macro %s.\r\n", MAKEFILE_MACRO);
+#ifdef MAKEFILE_MACRO_MAC
+	printf("\r\ndefined makefile macro %s.\r\n", MAKEFILE_MACRO_MAC);
+#endif
+#ifdef MAKEFILE_MACRO_LINUX
+	printf("\r\ndefined makefile macro %s.\r\n", MAKEFILE_MACRO_LINUX);
 #endif
     for(i = 0; i < argc; i++)
     {
